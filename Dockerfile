@@ -3,7 +3,7 @@ FROM  phusion/baseimage
 LABEL maintainer="Devil.Ster.1"
 LABEL version="1.0.1"
 
-ARG PHP_VER=7.2
+ARG PHP_VER=7.1
 
 ENV DEBIAN_FRONTEND noninteractive
 
