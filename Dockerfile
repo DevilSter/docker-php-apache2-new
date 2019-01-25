@@ -61,7 +61,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         make \
         postgresql-client \
         unzip \
-        git \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 # END Install Additional Soft
 
@@ -150,18 +149,11 @@ RUN mkdir /tmp/phpredis && \
 # END Install Redis Support For PHP
 
 # START Install XDebug Support
-RUN cd /tmp && \
-    git clone https://github.com/xdebug/xdebug.git && \
-    cd xdebug && \
-    phpize && \
-    ./configure --enable-xdebug && \
-    make clean && \
-    make && \
-    make install && \
+RUN pecl channel-update pecl.php.net && \
+    pecl install xdebug && \
     echo "zend_extension=xdebug.so" > /etc/php/${PHP_VER}/mods-available/xdebug.ini && \
     ln -s /etc/php/${PHP_VER}/mods-available/xdebug.ini /etc/php/${PHP_VER}/apache2/conf.d/xdebug.ini && \
-    ln -s /etc/php/${PHP_VER}/mods-available/xdebug.ini /etc/php/${PHP_VER}/cli/conf.d/xdebug.ini && \
-    rm -fr /tmp/xdebug
+    ln -s /etc/php/${PHP_VER}/mods-available/xdebug.ini /etc/php/${PHP_VER}/cli/conf.d/xdebug.ini
 
 RUN echo "xdebug.remote_enable=1" >> /etc/php/${PHP_VER}/cli/conf.d/xdebug.ini \
     && echo "xdebug.remote_autostart=1" >> /etc/php/${PHP_VER}/cli/conf.d/xdebug.ini \
