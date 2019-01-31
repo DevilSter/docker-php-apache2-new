@@ -3,7 +3,7 @@ FROM  phusion/baseimage
 LABEL maintainer="Devil.Ster.1"
 LABEL version="1.0.1"
 
-ARG PHP_VER=7.1
+ARG PHP_VER=7.3
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -166,6 +166,9 @@ RUN echo "xdebug.remote_enable=1" >> /etc/php/${PHP_VER}/cli/conf.d/xdebug.ini \
 # END Install XDebug Support
 
 WORKDIR /var/www
+
+# For Linux - write permissions for volumes
+RUN usermod -u 1000 www-data
 
 EXPOSE 80
 EXPOSE 443
