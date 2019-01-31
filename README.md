@@ -34,3 +34,14 @@ COMPOSE_PROJECT_NAME=devilster_php_apache2
 XDEBUG_CONFIG=remote_host=172.17.0.1
 ```
 
+For MacOs
+```dotenv
+COMPOSE_PROJECT_NAME=devilster_php_apache2
+XDEBUG_CONFIG=remote_host=docker.for.mac.localhost
+```
+
+For Windows
+```dotenv
+COMPOSE_PROJECT_NAME=devilster_php_apache2
+XDEBUG_CONFIG=remote_host=docker.for.win.localhost
+```

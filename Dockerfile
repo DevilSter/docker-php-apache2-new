@@ -167,5 +167,8 @@ RUN echo "xdebug.remote_enable=1" >> /etc/php/${PHP_VER}/cli/conf.d/xdebug.ini \
 
 WORKDIR /var/www
 
+# For Linux - write permissions for volumes
+RUN usermod -u 1000 www-data
+
 EXPOSE 80
 EXPOSE 443
