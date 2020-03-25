@@ -3,7 +3,7 @@ FROM  phusion/baseimage
 LABEL maintainer="Devil.Ster.1"
 LABEL version="1.0.1"
 
-ARG PHP_VER=7.3
+ARG PHP_VER=7.4
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -103,7 +103,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         php-pear \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN if [ "$PHP_VER" = "7.2" ] || [ "$PHP_VER" = "7.3" ]; \
+RUN if [ "$PHP_VER" = "7.2" ] || [ "$PHP_VER" = "7.3" ] || [ "$PHP_VER" = "7.4" ]; \
         then echo "7.2 AND 7.3 DOES NOT SUPPORT PHP_MCRYPT"; \
         else \
             apt-get update && \
