@@ -4,6 +4,7 @@ LABEL maintainer="Devil.Ster.1"
 LABEL version="1.0.1"
 
 ARG PHP_VER=7.3
+ARG BUILD_VER=20072020
 
 ENV DEBIAN_FRONTEND noninteractive
 
