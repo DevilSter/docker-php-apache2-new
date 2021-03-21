@@ -151,20 +151,20 @@ RUN mkdir /tmp/phpredis && \
 # END Install Redis Support For PHP
 
 # START Install XDebug Support
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    --allow-downgrades --allow-remove-essential --allow-change-held-packages \
-        \
-    && pecl install xdebug \
-    && docker-php-ext-enable xdebug \
-    && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN pecl channel-update pecl.php.net && \
+    pecl install xdebug && \
+    echo "zend_extension=xdebug.so" > /etc/php/${PHP_VER}/mods-available/xdebug.ini && \
+    ln -s /etc/php/${PHP_VER}/mods-available/xdebug.ini /etc/php/${PHP_VER}/apache2/conf.d/xdebug.ini && \
+    ln -s /etc/php/${PHP_VER}/mods-available/xdebug.ini /etc/php/${PHP_VER}/cli/conf.d/xdebug.ini
 
-RUN echo "xdebug.remote_enable=1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
-    && echo "xdebug.remote_autostart=1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
-    && echo "xdebug.remote_handler=dbgp" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
-    && echo "xdebug.remote_connect_back = 0" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
-    && echo "xdebug.remote_port=9000" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
-    && echo "xdebug.remote_mode=req" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
-    && echo "xdebug.idekey=\"PHPSTORM\"" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN echo "xdebug.remote_enable=1" >> /etc/php/${PHP_VER}/cli/conf.d/xdebug.ini \
+    && echo "xdebug.remote_autostart=1" >> /etc/php/${PHP_VER}/cli/conf.d/xdebug.ini \
+    && echo "xdebug.remote_handler=dbgp" >> /etc/php/${PHP_VER}/cli/conf.d/xdebug.ini \
+    && echo "xdebug.remote_connect_back = 0" >> /etc/php/${PHP_VER}/cli/conf.d/xdebug.ini \
+    && echo "xdebug.remote_port=9000" >> /etc/php/${PHP_VER}/cli/conf.d/xdebug.ini \
+    && echo "xdebug.remote_mode=req" >> /etc/php/${PHP_VER}/cli/conf.d/xdebug.ini \
+    && echo "xdebug.idekey=\"PHPSTORM\"" >> /etc/php/${PHP_VER}/cli/conf.d/xdebug.ini
+
 # END Install XDebug Support
 
 
